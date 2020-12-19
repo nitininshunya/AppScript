@@ -289,34 +289,34 @@
             <div id="frame2">
                 <h1>Create Account</h1>
                 <div class="social-container">
-                    <a href="#" class="social" onclick="underDev()"><i class="fa fa-facebook-f"></i></a>
-                    <a href="#" class="social" onclick="underDev()"><i class="fa fa-instagram"
+                    <a href="#" class="social" ><i class="fa fa-facebook-f"></i></a>
+                    <a href="#" class="social" ><i class="fa fa-instagram"
                             aria-hidden="true"></i></a>
-                    <a href="#" class="social" onclick="underDev()" ;><i class="fa fa-google-plus"
+                    <a href="#" class="social"  ;><i class="fa fa-google-plus"
                             aria-hidden="true"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button name="daftar">Sign Up</button>
+                <input type="text" id="nameSignup" placeholder="Name" />
+                <input type="email" id="emailSignup" placeholder="Email" />
+                <input type="password"  id="passwordSignup" placeholder="Password" />
+                <button id="signup" onclick="sendData()">Sign Up</button>
             </div>
         </div>
         <div class="form-container sign-in-container">
             <div id="frame">
                 <h1>Sign in</h1>
                 <div class="social-container">
-                    <a href="#" class="social" onclick="underDev()"><i class="fa fa-facebook-f"></i></a>
-                    <a href="#" class="social" onclick="underDev()"><i class="fa fa-instagram"
+                    <a href="#" class="social"><i class="fa fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fa fa-instagram"
                             aria-hidden="true"></i></a>
-                    <a href="#" class="social" onclick="underDev()"><i class="fa fa-google-plus"
+                    <a href="#" class="social"><i class="fa fa-google-plus"
                             aria-hidden="true"></i></a>
                 </div>
                 <span>or use your account</span>
                 <input id="input1" type="email" placeholder="Email" />
                 <input id="input2" type="password" placeholder="Password" />
-                <a href="#" onclick="underDev()" ;>Forgot your password?</a>
-                <button name="masuk">Sign In</button>
+                <a href="#";>Forgot your password?</a>
+                <button id="signin">Sign In</button>
             </div>
         </div>
         <div class="overlay-container">
@@ -337,80 +337,57 @@
 
     <footer>
         <p>
-            Created with <i class="fa fa-heart"></i> by
-            <a target="_blank" href="https://wa.me/6285695989185">Consulthink Programmer</a>
-            - Visit our channel to see another magnificent content
-            <a target="_blank"
-                href="https://www.youtube.com/channel/UCuCFRM4818jYd2WdqX4QXDQ/videos?view_as=subscriber">here</a>.
+            created by &copy; Nitin Gupta
         </p>
     </footer>
-
-
-</body>
-
-</html>
-
-
 <script>
-
-//    const sampleEmail = ['sample@email.com', 'contoh@email.com'];
-//    const samplePassword = ['123456', 'qwerty'];
-
     const signUpButton = document.getElementById('signUp');
     const signInButton = document.getElementById('signIn');
     const container = document.getElementById('container');
-
-    const masuk = document.getElementsByName('masuk')[0];
-    const daftar = document.getElementsByName('daftar')[0];
-
-    const input1 = document.getElementById('input1');
-    const input2 = document.getElementById('input2');
-
-
     signUpButton.addEventListener('click', () => {
         container.classList.add("right-panel-active");
     });
 
     signInButton.addEventListener('click', () => {
         container.classList.remove("right-panel-active");
-    });
-    
-    
-    input1.addEventListener('input',()=>{
-      if(input1.value.length>0){
-        google.script.run.withSuccessHandler(dataFromSpreadsheet).matchData(input1.value);
-      }
-    });
-    
-    var correctEmailPassword;
-    function dataFromSpreadsheet(data){
-      correctEmailPassword=data;
-    }
-
-    masuk.addEventListener('click', () => {
-         if(input1.value+input2.value==correctEmailPassword){
-           window.open('https://www.google.com', "_top");
-         }else{
-           alert('try again');
-         }
-//        console.log(input1.value , input2.value);
-//        const posisiEmail = sampleEmail.indexOf(input1.value);
-//        const posisiPassword = samplePassword.indexOf(input2.value);
-//        console.log(posisiPassword,posisiPassword);
-//        if ((posisiEmail > -1 && posisiPassword > -1) && posisiEmail == posisiPassword) {
-//            window.open('https://www.google.com', "_top");
-//        }
-//        else {
-//            alert('data not valid')
-//        }
-    })
-
-    daftar.addEventListener('click', () => {
-        underDev();
-    });
-
-    function underDev() {
-        alert("underdevelopment");
-    }
+    });    
 
 </script>
+
+<script>
+      function sendData(e){
+        const name=document.getElementById('nameSignup').value;
+        const email=document.getElementById('emailSignup').value;
+        const password=document.getElementById('passwordSignup').value;
+        const data={
+             name:name,
+             email:email,
+             password:password,
+        };
+        console.log('here is my body data',data);
+          const url = 'http://localhost:8080/';
+         
+          const request = {
+               method: 'POST',
+            //    mode: 'no-cors', 
+            //    cache: 'no-cache', 
+            headers: { 'Content-Type': 'application/json' },
+            //    redirect: 'follow', 
+               body: JSON.stringify({data:data})
+          }
+          fetch(url, request)
+          .then(response => {
+              return response.json();
+          })
+          .then(json => console.log("jshcjsc   jhkjhkhk ",json))
+          .catch(err => console.error("here is my error error error  ...... ",err));
+
+    }
+</script>
+
+
+
+</body>
+
+</html>
+
