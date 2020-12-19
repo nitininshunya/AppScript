@@ -369,10 +369,10 @@
          
           const request = {
                method: 'POST',
-            //    mode: 'no-cors', 
-            //    cache: 'no-cache', 
+               mode: 'no-cors', 
+               cache: 'no-cache', 
             headers: { 'Content-Type': 'application/json' },
-            //    redirect: 'follow', 
+               redirect: 'follow', 
                body: JSON.stringify({data:data})
           }
           fetch(url, request)
